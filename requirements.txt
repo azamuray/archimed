@@ -1,0 +1,3 @@
+numpy==1.22.0
+opencv-python==3.4.17.61
+pyserial~=3.5
