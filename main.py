@@ -9,7 +9,7 @@ stop_rotation = b'D'
 rotate_right = b'R'
 rotate_left = b'L'
 out_seconds = 1
-usb_port: list = glob('/dev/tty.usb*')
+usb_port: list = glob('/dev/tty.usbserial*')
 
 
 def main():
@@ -23,8 +23,13 @@ def main():
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
     cap = cv2.VideoCapture(0)
-    cap.set(3, 1920)  # set Width
-    cap.set(4, 1080)  # set Height
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    shift = 120 if width <= 1280 else 240
+    right_shift = (width/2)-shift
+    left_shift = (width/2)+shift
+    cap.set(3, width)
+    cap.set(4, height)
 
     while True:
         ret, img = cap.read()
@@ -39,10 +44,10 @@ def main():
         for (x, y, w, h) in faces:
 
             center = int(x+(w/2))
-            if center < 520:
+            if center < right_shift:
                 print("Вы находитесь правее")
                 ser.write(rotate_right)
-            elif 760 <= center <= 1280:
+            elif left_shift <= center <= width:
                 print("Вы находитесь левее")
                 ser.write(rotate_left)
             else:

@@ -1,10 +1,10 @@
 const int leftPin = 13;
 const int rightPin = 12;
 
-#define A 2
-#define B 3
-#define C 4
-#define D 5
+#define A 3
+#define B 4
+#define C 5
+#define D 6
 #define NUMBER_OF_STEPS_PER_REV 512
 
 void write(int a,int b,int c,int d){
