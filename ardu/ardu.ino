@@ -1,6 +1,3 @@
-const int leftPin = 13;
-const int rightPin = 12;
-
 #define A 3
 #define B 4
 #define C 5
@@ -55,8 +52,6 @@ int incomingByte;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(leftPin, OUTPUT);
-  pinMode(rightPin, OUTPUT);
 
   // Setup stepper driver
   pinMode(A,OUTPUT);
@@ -69,16 +64,12 @@ void loop() {
   if (Serial.available() > 0) {
     incomingByte = Serial.read();
     if (incomingByte == 'L') {
-      digitalWrite(leftPin, HIGH);
       goLeft();
     }
     if (incomingByte == 'R') {
-      digitalWrite(rightPin, HIGH);
       goRight();
     }
-    if (incomingByte == 'D') {
-      digitalWrite(rightPin, LOW);
-      digitalWrite(leftPin, LOW);
-    }
+//    if (incomingByte == 'D') {
+//    }
   }
 }
